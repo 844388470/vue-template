@@ -8,6 +8,8 @@ module.exports = {
   dev: {
 
     // Paths
+    dev_cs: require('./dev_cs.env'),
+    dev_zs: require('./dev_zs.env'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {},
@@ -15,7 +17,7 @@ module.exports = {
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: false,
+    autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
@@ -38,12 +40,15 @@ module.exports = {
 
   build: {
     // Template for index.html
+    build_cs: require('./build_cs.env'),
+    build_zs: require('./build_zs.env'),
+
     index: path.resolve(__dirname, '../dist/index.html'),
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
