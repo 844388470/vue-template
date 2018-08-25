@@ -13,7 +13,7 @@
         <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"
           placeholder="密码" />
          
-        <span class="show-pwd iconfont icon-eye-close" @click="showPwd"></span>
+        <span :class="`show-pwd iconfont ${pwdType?'icon-yanbi':'icon-yankai'}`" @click="showPwd"></span>
       </el-form-item>
 
       <el-button type="primary" style="width:100%;margin-bottom:30px;" :loading="loading" @click.native.prevent="handleLogin">登录</el-button>
@@ -208,7 +208,7 @@ export default {
       color: #454545;
     }
     .show-pwd {
-      position: absolute;
+      // position: absolute;
       right: 10px;
       top: 7px;
       font-size: 16px;

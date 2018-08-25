@@ -6,14 +6,14 @@
           <template  v-for="(item , index) in routerList">
             <router-link v-if="item.children && item.radius && item.children.length===1  && !item.children[0].children" :to="item.path+'/'+item.children[0].path" :key="item.name">
               <el-menu-item :index="item.path+'/'+item.children[0].path" class='submenu-title-noDropdown'>
-                <i :class="'icon iconfont '+item.icon"></i>
+                <i :class="'icon iconfont icon-'+item.icon"></i>
                 <span slot="title">{{item.children[0].name}}</span>
               </el-menu-item>
             </router-link>
 
             <el-submenu v-if="item.children&& item.radius && (item.children.length!==1 || (item.children.length===1 && item.children[0].children))" :index="item.path" :key="item.name">
               <template slot="title">
-                <i :class="'icon iconfont '+item.icon"></i>
+                <i :class="'icon iconfont icon-'+item.icon"></i>
                 <span slot="title">{{item.name}}</span>
               </template>
 
@@ -21,7 +21,7 @@
 
                 <el-submenu v-if="child.radius && child.children && child.children.length>0" :index="item.path+'/'+child.path" :key="child.name">
                   <template slot="title">
-                    <i :class="'icon iconfont '+child.icon"></i>
+                    <i :class="'icon iconfont icon-'+child.icon"></i>
                     <span slot="title">{{child.name}}</span>
                   </template>
 
@@ -49,7 +49,7 @@
 
     <div class="content " :style="{'margin-left':sidebarWidth}">
       <div class="topBar">
-        <el-button @click="isCollapse=!isCollapse" type="text" class="iconfont icon-other collapse fl"></el-button>
+        <el-button @click="isCollapse=!isCollapse" type="text" :class="`iconfont ${isCollapse?'icon-kuaijiecaidan':'icon-caidan'} collapse fl`"></el-button>
         <el-breadcrumb separator-class="el-icon-arrow-right" class="fl topBar-title">
           <el-breadcrumb-item :to="{ path: '/index/index' }" >护理管理平台</el-breadcrumb-item>
           <el-breadcrumb-item v-for="item in $route.matched" v-if="item.name" :key="item.path" class="no-redirect">{{item.name}}</el-breadcrumb-item>    
@@ -244,15 +244,15 @@ export default {
   height: 100%;
   width: 100%;
   background: #eee;
-}
-.main .icon {
-  font-size: 21px;
-  margin-right: 5px;
-  width: 24px;
-  vertical-align: middle;
-}
-.main a {
-  text-decoration: none;
+  .icon {
+    font-size: 21px;
+    margin-right: 5px;
+    width: 24px;
+    vertical-align: middle;
+  }
+  a {
+    text-decoration: none;
+  }
 }
 .sidebar {
   transition: width 0.28s;

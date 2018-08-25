@@ -9,8 +9,6 @@ import plugin from '@/plugins'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/icon/icon/iconfont.css'
-import './assets/icon/icon1/iconfont.css'
-import './assets/icon/icon2/iconfont.css'
 import './assets/scss/base.scss'
 import './router/interception'
 
