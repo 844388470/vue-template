@@ -3,7 +3,7 @@
   <div class="main">
     <div class="sidebar" :style="{width:sidebarWidth,'overflow':'auto'}">
       <el-menu :default-active="$route.path" class="el-menu-vertical-demo" text-color="#fff" active-text-color="rgb(64, 158, 255)" background-color="#304156" :collapse="isCollapse">
-          <template  v-for="(item , index) in routerList">
+          <template v-for="(item,index) in routerList">
             <router-link v-if="item.children && item.radius && item.children.length===1  && !item.children[0].children" :to="item.path+'/'+item.children[0].path" :key="item.name">
               <el-menu-item :index="item.path+'/'+item.children[0].path" class='submenu-title-noDropdown'>
                 <i :class="'icon iconfont icon-'+item.icon"></i>
@@ -51,7 +51,7 @@
       <div class="topBar">
         <el-button @click="isCollapse=!isCollapse" type="text" :class="`iconfont ${isCollapse?'icon-kuaijiecaidan':'icon-caidan'} collapse fl`"></el-button>
         <el-breadcrumb separator-class="el-icon-arrow-right" class="fl topBar-title">
-          <el-breadcrumb-item :to="{ path: '/index/index' }" >护理管理平台</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/index/index' }" >零零智能管理系统</el-breadcrumb-item>
           <el-breadcrumb-item v-for="item in $route.matched" v-if="item.name" :key="item.path" class="no-redirect">{{item.name}}</el-breadcrumb-item>    
         </el-breadcrumb>
         <el-dropdown class="fr" @command="handleCommand">
@@ -113,7 +113,9 @@
       
      <div class="routerView">
        <transition name="el-fade-in-linear">
-        <router-view  v-show="show"></router-view>
+        <keep-alive :include="viewTagKeep">
+          <router-view  v-show="show"></router-view>
+        </keep-alive>
       </transition>
      </div>
     
@@ -147,14 +149,16 @@ export default {
     };
   },
   mounted() {
-    this.pushRouter({ name: '首页', path: '/index/index' })
+    if(!this.viewTagList.length){
+      this.pushRouter({ name: '首页', path: '/index/index',meta:{keep:'homepage' }})
+    }
   },
   methods: {
     ...mapActions(["setViewTagList"]),
     //导航栏跳转
     pushRouter(val) {
       if (this.viewTagList.filter(t => t.path == val.path).length == 0) {
-        this.viewTagList.push({ name: val.name, path: val.path });
+        this.viewTagList.push({ name: val.name, path: val.path,keep:val.meta.keep });
         this.setViewTagList(this.viewTagList);
       }
     },
@@ -173,7 +177,8 @@ export default {
         }
       } else {
         if(this.$route.path=='/index/index'){ 
-          this.setViewTagList([{ name: '首页', path: '/index/index' }]);
+          this.setViewTagList([])
+          this.pushRouter({ name: '首页', path: '/index/index',meta:{keep:'homepage' }})
         }else{
           this.$router.push("/index/index");
         }
@@ -234,7 +239,15 @@ export default {
   },
   computed: {
     ...mapState(["loading", "routerList", "viewTagList"]),
-    ...mapGetters(["loading", "routerList", "viewTagList"])
+    ...mapGetters(["loading", "routerList", "viewTagList"]),
+    viewTagKeep(){
+      let arr=[]
+      for(let i in this.viewTagList){
+        arr.push(this.viewTagList[i].keep)
+      }
+      console.log(arr.join(','))
+      return arr.join(',') || 'baidu'
+    }
   }
 };
 </script>
@@ -306,6 +319,7 @@ export default {
 }
 .routerView {
   box-sizing: border-box;
+  overflow:hidden;
   width: 100%;
   padding: 20px;
 }

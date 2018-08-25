@@ -17,22 +17,8 @@ const list={
         radius:true,
         redirect: '/index/index',
         icon: 'shouye',
-        children: [{path: 'index',name:'首页',radius:true,component: _import('home/homepage')}]
+        children: [{path: 'index',name:'首页',radius:true,component: _import('home/homepage'),meta: { keep:'homepage' }}]
       },
-      {
-        path: '/meun',
-        name: 'meun4',
-        radius:true,
-        component: _import('index'),
-        icon: 'el-icon-location',
-        redirect: '/meun/meun4_1',
-        children: [
-          {path: 'meun4_1',name: 'meun4_1',component: _import('menu4/menu4'),meta: { index: '4' },radius:true,},
-          {path: 'meun4_2',name: 'meun4_2',component: _import('menu4/menu4'),meta: { index: '4' },radius:true,},
-          {path: 'meun4_3',name: 'meun4_3',component: _import('menu4/menu4'),meta: { index: '4' },radius:true,},
-        ]
-      },
-
       {path:'*',redirect:'/404'}
 
     ]
