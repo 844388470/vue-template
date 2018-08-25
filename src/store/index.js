@@ -7,6 +7,7 @@ Vue.use(Vuex)
 let state = {
   loading: false,
   routerList: sessionStorage['routerList'] ? JSON.parse(sessionStorage['routerList']) : [],
+  roles:sessionStorage['roles'] ? sessionStorage['roles'] : '',
   viewTagList:sessionStorage['viewTagList'] ? JSON.parse(sessionStorage['viewTagList']) : [],     //tab标签
   isLogin:sessionStorage['isLogin'] ? sessionStorage['isLogin'] : 0
 }
@@ -27,6 +28,9 @@ let actions = {
       resolve()
     })
   },
+  setRoles({ commit }, info) {
+    commit('SET_ROLES', info)
+  },
 }
 
 let mutations = {
@@ -44,13 +48,18 @@ let mutations = {
   SET_IS_LOGIN(state, info) {
     sessionStorage['isLogin'] = info
     state.isLogin = info
+  },
+  SET_ROLES(state,info){
+    sessionStorage['roles'] = info
+    state.roles = info
   }
 }
 let getters = {
   loading: state => state.loading,
   routerList: state => state.routerList,
   viewTagList: state => state.viewTagList,
-  isLogin:  state => state.isLogin
+  isLogin:  state => state.isLogin,
+  roles:  state => state.roles,
 }
 
 export default new Vuex.Store({

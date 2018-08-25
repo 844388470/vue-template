@@ -73,7 +73,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setRouterList','setViewTagList','setIsLogin']),
+    ...mapActions(['setRouterList','setViewTagList','setIsLogin','setRoles']),
     showPwd() {
       if (this.pwdType === 'password') {
         this.pwdType = ''
@@ -103,6 +103,11 @@ export default {
         //   }).catch(()=>{
 
         //   })
+          if(this.loginForm.username=='6666666666'&&this.loginForm.password=='111111'){
+            this.setRoles('admin')
+          }else{
+            this.setRoles('user')
+          }
           console.log(routerlist.routes)
           this.setIsLogin(1)
           this.setRouterList(routerlist.routes)
